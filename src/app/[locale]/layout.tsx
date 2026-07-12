@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Inter, Sora } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { MotionConfig } from "framer-motion";
+import NextTopLoader from "nextjs-toploader";
 
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
+import { SiteChrome } from "@/components/layout/site-chrome";
+import { PageViewTracker } from "@/components/shared/page-view-tracker";
 import { JsonLd, organizationJsonLd, localBusinessJsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.png",
   },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
     ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
@@ -84,6 +86,7 @@ export default async function RootLayout({ children, params: { locale } }: RootL
   return (
     <html lang={locale} className={`${inter.variable} ${sora.variable}`}>
       <body className="min-h-screen bg-background font-sans text-foreground">
+        <NextTopLoader color="#D7FF3D" height={3} showSpinner={false} shadow="0 0 10px #D7FF3D,0 0 5px #D7FF3D" />
         <JsonLd data={organizationJsonLd(siteConfig.url)} />
         <JsonLd data={localBusinessJsonLd(siteConfig.url)} />
         <a
@@ -94,9 +97,12 @@ export default async function RootLayout({ children, params: { locale } }: RootL
         </a>
         <NextIntlClientProvider messages={messages}>
           <MotionConfig reducedMotion="user">
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
+            <Suspense fallback={null}>
+              <PageViewTracker />
+            </Suspense>
+            <SiteChrome>
+              <main id="main-content">{children}</main>
+            </SiteChrome>
           </MotionConfig>
         </NextIntlClientProvider>
       </body>

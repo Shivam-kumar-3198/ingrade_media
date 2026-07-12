@@ -1,0 +1,88 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Only this exact, email-verified Google account may read/manage data.
+    // This is the real security boundary — client-side checks in the admin
+    // UI are just for UX, not enforcement.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'ekpaisafinance@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    // Contact form submissions. Anyone may create one (it's a public form),
+    // nobody but the admin may read, update, or delete — this keeps lead
+    // data from being scraped by competitors even though writes are public.
+    match /leads/{leadId} {
+      allow read, update, delete: if isAdmin();
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'name', 'email', 'company', 'website', 'country', 'budget', 'services', 'message',
+          'status', 'createdAt', 'page', 'referrer',
+          'utmSource', 'utmMedium', 'utmCampaign', 'utmTerm', 'utmContent',
+          'userAgent', 'language', 'timezone', 'screen',
+          'ip', 'geoCountry', 'geoCity'
+        ])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0 && request.resource.data.name.size() < 200
+        && request.resource.data.email is string
+        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && request.resource.data.company is string && request.resource.data.company.size() < 200
+        && request.resource.data.website is string && request.resource.data.website.size() < 500
+        && request.resource.data.country is string && request.resource.data.country.size() < 100
+        && request.resource.data.budget is string && request.resource.data.budget.size() < 100
+        && request.resource.data.services is list && request.resource.data.services.size() < 20
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0 && request.resource.data.message.size() < 5000
+        && request.resource.data.status == 'new'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.page is string && request.resource.data.page.size() < 500
+        && request.resource.data.referrer is string && request.resource.data.referrer.size() < 500
+        && request.resource.data.utmSource is string && request.resource.data.utmSource.size() < 200
+        && request.resource.data.utmMedium is string && request.resource.data.utmMedium.size() < 200
+        && request.resource.data.utmCampaign is string && request.resource.data.utmCampaign.size() < 200
+        && request.resource.data.utmTerm is string && request.resource.data.utmTerm.size() < 200
+        && request.resource.data.utmContent is string && request.resource.data.utmContent.size() < 200
+        && request.resource.data.userAgent is string && request.resource.data.userAgent.size() < 500
+        && request.resource.data.language is string && request.resource.data.language.size() < 50
+        && request.resource.data.timezone is string && request.resource.data.timezone.size() < 100
+        && request.resource.data.screen is string && request.resource.data.screen.size() < 50
+        && request.resource.data.ip is string && request.resource.data.ip.size() < 100
+        && request.resource.data.geoCountry is string && request.resource.data.geoCountry.size() < 100
+        && request.resource.data.geoCity is string && request.resource.data.geoCity.size() < 100;
+    }
+
+    // Lightweight pageview analytics. Same pattern: public create, admin-only read.
+    match /pageviews/{viewId} {
+      allow read, update, delete: if isAdmin();
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'page', 'referrer', 'utmSource', 'utmMedium', 'utmCampaign', 'utmTerm', 'utmContent',
+          'userAgent', 'language', 'timezone', 'screen', 'country', 'createdAt'
+        ])
+        && request.resource.data.page is string
+        && request.resource.data.page.size() > 0 && request.resource.data.page.size() < 500
+        && request.resource.data.referrer is string && request.resource.data.referrer.size() < 500
+        && request.resource.data.utmSource is string && request.resource.data.utmSource.size() < 200
+        && request.resource.data.utmMedium is string && request.resource.data.utmMedium.size() < 200
+        && request.resource.data.utmCampaign is string && request.resource.data.utmCampaign.size() < 200
+        && request.resource.data.utmTerm is string && request.resource.data.utmTerm.size() < 200
+        && request.resource.data.utmContent is string && request.resource.data.utmContent.size() < 200
+        && request.resource.data.userAgent is string && request.resource.data.userAgent.size() < 500
+        && request.resource.data.language is string && request.resource.data.language.size() < 50
+        && request.resource.data.timezone is string && request.resource.data.timezone.size() < 100
+        && request.resource.data.screen is string && request.resource.data.screen.size() < 50
+        && request.resource.data.country is string && request.resource.data.country.size() < 100
+        && request.resource.data.createdAt == request.time;
+    }
+
+    // Default deny — anything outside the collections above is inaccessible.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { HowWeWork } from "@/components/sections/how-we-work";
 import { ResultsGrid } from "@/components/sections/results-grid";
 import { WhyUs } from "@/components/sections/why-us";
 import { Testimonials } from "@/components/sections/testimonials";
+import { InstagramFeed } from "@/components/sections/instagram-feed";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FinalCta } from "@/components/sections/final-cta";
 import { homeStats } from "@/lib/data/stats";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <ResultsGrid />
       <WhyUs />
       <Testimonials />
+      <InstagramFeed />
       <FaqSection faqs={homeFaqs} idPrefix="home-faq" />
       <FinalCta />
     </>

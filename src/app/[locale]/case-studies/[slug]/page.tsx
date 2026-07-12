@@ -105,24 +105,26 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
               ))}
             </ul>
 
-            <blockquote className="mt-10 rounded-2xl border border-white/10 bg-card/50 p-6">
-              <p className="text-lg leading-relaxed text-foreground/90">&ldquo;{study.testimonialQuote}&rdquo;</p>
-              <footer className="mt-5 flex items-center gap-3">
-                <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-secondary">
-                  <Image
-                    src={getTestimonialAvatar(study.testimonialName)}
-                    alt={`Photo of ${study.testimonialName}`}
-                    fill
-                    sizes="44px"
-                    className="object-cover"
-                  />
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  <span className="block font-medium text-foreground">{study.testimonialName}</span>
-                  {study.testimonialRole}
-                </span>
-              </footer>
-            </blockquote>
+            {study.testimonialQuote && study.testimonialName ? (
+              <blockquote className="mt-10 rounded-2xl border border-white/10 bg-card/50 p-6">
+                <p className="text-lg leading-relaxed text-foreground/90">&ldquo;{study.testimonialQuote}&rdquo;</p>
+                <footer className="mt-5 flex items-center gap-3">
+                  <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-secondary">
+                    <Image
+                      src={getTestimonialAvatar(study.testimonialName)}
+                      alt={`Photo of ${study.testimonialName}`}
+                      fill
+                      sizes="44px"
+                      className="object-cover"
+                    />
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    <span className="block font-medium text-foreground">{study.testimonialName}</span>
+                    {study.testimonialRole}
+                  </span>
+                </footer>
+              </blockquote>
+            ) : null}
           </div>
 
           <div>

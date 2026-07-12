@@ -3,9 +3,12 @@ module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.ingrademedia.com",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: ["/thank-you"],
+  exclude: ["/thank-you", "/admin", "/admin/*"],
   robotsTxtOptions: {
-    policies: [{ userAgent: "*", allow: "/" }],
+    policies: [
+      { userAgent: "*", allow: "/" },
+      { userAgent: "*", disallow: "/admin" },
+    ],
   },
   // Pages are pre-rendered under /en/... (the default locale segment), but
   // next-intl serves the default locale with no URL prefix ("as-needed").

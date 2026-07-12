@@ -20,9 +20,11 @@ export interface CaseStudy {
   challenge: string;
   approach: string[];
   results: CaseStudyResult[];
-  testimonialQuote: string;
-  testimonialName: string;
-  testimonialRole: string;
+  // Optional: omit all three for case studies still in progress (no fabricated
+  // quotes) — the detail page only renders the testimonial block when present.
+  testimonialQuote?: string;
+  testimonialName?: string;
+  testimonialRole?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -235,6 +237,131 @@ export const caseStudies: CaseStudy[] = [
       "Our site had gotten unmanageable and slow. The rebuild is faster, safer, and finally something we understand.",
     testimonialName: "Marcus Reyes",
     testimonialRole: "Franchise Operations Lead, BrightPath",
+  },
+  // The six case studies below are live engagements. Numbers, the challenge
+  // framing, and testimonials are intentionally left pending — real results
+  // go here as soon as they're confirmed, not invented ones. See
+  // headlineLabel/summary/challenge/results for the "in progress" copy.
+  {
+    slug: "nextskilledge",
+    client: "NextSkillEdge",
+    industry: "Online Education",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["website-development", "meta-ads", "google-ads"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "NextSkillEdge helps professionals and graduates get into university programs abroad and at home. We're running landing pages and paid search/social to drive qualified admissions leads.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Built high-converting landing pages tailored to specific university programs.",
+      "Executed targeted Meta and Google Search campaigns focused on high-intent students.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
+  },
+  {
+    slug: "nav-sanyogita-foundation",
+    client: "Nav Sanyogita Foundation",
+    industry: "Nonprofit",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["website-development", "social-media-management"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "Nav Sanyogita Foundation runs vocational training and entrepreneurship programs for women. We're running a website rebuild and awareness campaigns to grow reach and donor/volunteer sign-ups.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Redesigned the website to simplify the donation and registration user flows.",
+      "Launched awareness campaigns highlighting success stories of vocational training graduates.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
+  },
+  {
+    slug: "learnleap",
+    client: "LearnLeap",
+    industry: "EdTech",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["meta-ads"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "LearnLeap runs live, mentor-led cohorts in DevOps, Data Science, and AI for working professionals. We're running Meta lead generation and retargeting to fill cohorts.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Structured retargeting funnels focused on dynamic social proof and curriculum value.",
+      "Ran value-driven Meta lead generation ads targeting tech professionals in transition.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
+  },
+  {
+    slug: "erson-motors",
+    client: "Erson Motors",
+    industry: "Automotive",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["website-development", "meta-ads"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "Erson Motors needed a brand and lead pipeline built from scratch. We're running website development and local Meta campaigns to launch their digital presence.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Developed a modern, minimalist branding website optimized for high-ticket lead capture.",
+      "Deployed hyper-targeted local Meta ad campaigns targeting premium car buyers.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
+  },
+  {
+    slug: "ekpaisa",
+    client: "EkPaisa",
+    industry: "Fintech",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["website-development", "meta-ads"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "EkPaisa is a loan marketplace connecting borrowers with lenders. We're running platform development and paid social to scale qualified loan applications.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Engineered a secure, multi-step loan application marketplace platform.",
+      "Automated backend lead routing to lenders for near-instant credit verification.",
+      "Scaled digital marketing lead generation campaigns via Meta.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
+  },
+  {
+    slug: "propsaarthi",
+    client: "PropSaarthi",
+    industry: "Real Estate",
+    country: "India",
+    countryFlag: "🇮🇳",
+    services: ["website-development", "meta-ads", "google-ads"],
+    headlineResult: "—",
+    headlineLabel: "Full results write-up in progress",
+    summary:
+      "PropSaarthi is a property investment advisory platform. We're running a lead-qualification funnel and paid search/social to reach high-intent property investors.",
+    timeframe: "Ongoing",
+    challenge:
+      "Full write-up in progress — check back soon, or contact us directly for results to date.",
+    approach: [
+      "Engineered a multi-step lead filtering funnel to qualify property buyers by budget and preferred location before they reached the sales team.",
+      "Deployed hyper-targeted Meta and Google Search campaigns focused on NRI investors and high-net-worth professionals.",
+    ],
+    results: [{ value: "—", label: "Full metrics coming soon" }],
   },
 ];
 

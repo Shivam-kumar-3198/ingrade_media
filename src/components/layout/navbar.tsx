@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -18,8 +19,15 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/5 bg-background/70 backdrop-blur-lg">
       <div className="container flex h-18 items-center justify-between py-4">
-        <Link href="/" className="font-display text-lg font-semibold tracking-tight">
-          Ingrade<span className="text-primary">Media</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/logos/logo-mark-icon.png"
+            alt="Ingrade Media"
+            width={90}
+            height={28}
+            className="h-9 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">

@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { contactFormSchema, type ContactFormValues, budgetRanges, countries, serviceOptions } from "@/lib/validations/contact";
 import { useSelectedCountry } from "@/hooks/use-selected-country";
+import { getClientLeadMetadata } from "@/lib/lead-metadata";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -58,7 +59,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, ...getClientLeadMetadata() }),
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");

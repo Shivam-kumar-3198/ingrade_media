@@ -83,6 +83,13 @@
   }
 }
 
+/* The Elfsight Instagram widget defaults its bio/hashtag line to black text,
+   assuming a light page background. Force it to match our dark theme. */
+.eapps-instagram-feed-title,
+.eapps-instagram-feed-title a {
+  color: #f7f7f7 !important;
+}
+
 ::selection {
   background-color: rgba(215, 255, 61, 0.35);
   color: #0a0a0f;

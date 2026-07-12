@@ -18,7 +18,7 @@ export const siteConfig = {
   },
   social: {
     linkedin: "https://www.linkedin.com/company/ingrade-media",
-    instagram: "https://www.instagram.com/ingrademedia",
+    instagram: "https://www.instagram.com/ingrade_media",
     x: "https://www.x.com/ingrademedia",
     youtube: "https://www.youtube.com/@ingrademedia",
   },
