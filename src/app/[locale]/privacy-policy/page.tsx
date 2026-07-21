@@ -71,8 +71,7 @@ export default function PrivacyPolicyPage() {
           <h2>Contact</h2>
           <p>
             Questions about this policy can be sent to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>{" "}
-            or {siteConfig.address.line1}, {siteConfig.address.city}, {siteConfig.address.region}{" "}
-            {siteConfig.address.postalCode}, {siteConfig.address.country}.
+            or {siteConfig.address.line1}.
           </p>
         </div>
       </div>

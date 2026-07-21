@@ -72,10 +72,7 @@ export function Footer() {
                 {siteConfig.phone}
               </a>
             </li>
-            <li className="text-muted-foreground/80">
-              {siteConfig.address.line1}, {siteConfig.address.city}, {siteConfig.address.region}{" "}
-              {siteConfig.address.postalCode}
-            </li>
+            <li className="text-muted-foreground/80">{siteConfig.address.line1}</li>
           </ul>
         </div>
       </div>

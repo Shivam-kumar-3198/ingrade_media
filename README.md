@@ -193,7 +193,7 @@ Everything below is a placeholder and needs a real value before this goes live.
 **Brand basics**
 - [ ] Confirm the company name/domain (currently "Ingrade Media" / `ingrademedia.com` placeholders in `src/lib/site-config.ts`)
 - [ ] Replace the SVG wordmark logo (`public/images/logo.svg`) and favicon (`public/favicon.svg`) with real brand assets
-- [ ] Replace `src/lib/site-config.ts` phone number (`+1 (555) 014-2890`), email, and office address with real ones
+- [ ] Replace `src/lib/site-config.ts` phone number (`+91 8588808538`), email, and office address with real ones
 - [ ] Replace social links in `src/lib/site-config.ts` with real profile URLs
 
 **Trust content (client-facing, highest priority — fake data here is a credibility risk)**

@@ -7,14 +7,10 @@ export const siteConfig = {
   // TODO: replace with a real inbox before launch
   email: "hello@ingrademedia.com",
   // TODO: replace with a real support line before launch — placeholder format only
-  phone: "+1 (555) 014-2890",
+  phone: "+91 8588808538",
   // TODO: replace with the real registered office address before launch
   address: {
-    line1: "228 Park Ave S, Suite 91074",
-    city: "New York",
-    region: "NY",
-    postalCode: "10003",
-    country: "United States",
+    line1: "Noida",
   },
   social: {
     linkedin: "https://www.linkedin.com/company/ingrade-media",

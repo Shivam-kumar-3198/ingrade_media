@@ -40,11 +40,7 @@ export function localBusinessJsonLd(siteUrl: string) {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "228 Park Ave S, Suite 91074",
-      addressLocality: "New York",
-      addressRegion: "NY",
-      postalCode: "10003",
-      addressCountry: "US",
+      streetAddress: "Noida",
     },
     areaServed: "Worldwide",
   };
