@@ -96,6 +96,27 @@ export function serviceJsonLd(params: {
   };
 }
 
+export function itemListJsonLd(params: {
+  name: string;
+  items: { name: string; url: string; description?: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: params.name,
+    itemListElement: params.items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Service",
+        name: item.name,
+        url: item.url,
+        ...(item.description ? { description: item.description } : {}),
+      },
+    })),
+  };
+}
+
 export function articleJsonLd(params: {
   siteUrl: string;
   title: string;

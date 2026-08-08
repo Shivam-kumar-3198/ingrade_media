@@ -9,6 +9,8 @@
  * in the codebase needs to change since every page reads from here.
  */
 
+import type { ServiceSlug } from "@/lib/data/services";
+
 function unsplash(id: string, params = "w=600&q=80") {
   return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&${params}`;
 }
@@ -39,4 +41,15 @@ export const scenePhotos = {
   resultsCelebration: unsplash("1600880292203-757bb62b4baf", "w=1200&q=80"),
   teamWorkingTable: unsplash("1521737604893-d14cc237f11d", "w=1200&q=80"),
   strategyMeeting: unsplash("1517245386807-bb43f82c33c4", "w=1200&q=80"),
+};
+
+/** One relatable work scene per service, used on the services listing cards */
+export const serviceCardPhotos: Record<ServiceSlug, string> = {
+  "meta-ads": unsplash("1551650975-87deedd944c3", "w=800&q=80"),
+  "google-ads": unsplash("1460925895917-afdab827c52f", "w=800&q=80"),
+  "app-development": unsplash("1512941937669-90a1b58e7e9c", "w=800&q=80"),
+  "website-development": unsplash("1607799279861-4dd421887fb3", "w=800&q=80"),
+  "social-media-management": unsplash("1611926653458-09294b3142bf", "w=800&q=80"),
+  "webflow-development": unsplash("1556155092-490a1ba16284", "w=800&q=80"),
+  "wordpress-development": unsplash("1571171637578-41bc2dd41cd2", "w=800&q=80"),
 };
