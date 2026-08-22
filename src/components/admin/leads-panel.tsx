@@ -32,7 +32,7 @@ export function LeadsPanel() {
     const q = search.trim().toLowerCase();
     if (!q) return leads;
     return leads.filter((lead) =>
-      [lead.name, lead.email, lead.company, lead.message].some((field) => field?.toLowerCase().includes(q))
+      [lead.name, lead.email, lead.phone, lead.company, lead.message].some((field) => field?.toLowerCase().includes(q))
     );
   }, [leads, search]);
 
@@ -98,11 +98,11 @@ export function LeadsPanel() {
                     >
                       <td className="px-4 py-3">
                         <p className="font-medium">{lead.name}</p>
-                        <p className="text-xs text-muted-foreground">{lead.email}</p>
+                        <p className="text-xs text-muted-foreground">{lead.email || lead.phone || "—"}</p>
                       </td>
-                      <td className="px-4 py-3">{lead.company}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{lead.budget}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{lead.country}</td>
+                      <td className="px-4 py-3">{lead.company || "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{lead.budget || "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{lead.country || "—"}</td>
                       <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                         <select
                           value={lead.status}
@@ -130,9 +130,11 @@ export function LeadsPanel() {
                       <tr className="border-b border-border/60 bg-secondary/20 last:border-0">
                         <td colSpan={7} className="px-4 py-4">
                           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            <Detail label="Website" value={lead.website} />
-                            <Detail label="Services" value={lead.services.join(", ") || "—"} />
-                            <Detail label="Message" value={lead.message} className="sm:col-span-2 lg:col-span-3" />
+                            <Detail label="Phone" value={lead.phone || "—"} />
+                            <Detail label="Source" value={lead.source || "contact-form"} />
+                            <Detail label="Website" value={lead.website || "—"} />
+                            <Detail label="Services" value={lead.services?.join(", ") || "—"} />
+                            <Detail label="Message" value={lead.message || "—"} className="sm:col-span-2 lg:col-span-3" />
                             <Detail label="Page" value={lead.page || "—"} />
                             <Detail label="Referrer" value={lead.referrer || "Direct"} />
                             <Detail label="UTM source" value={lead.utmSource || "—"} />

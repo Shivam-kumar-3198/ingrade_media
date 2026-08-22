@@ -20,7 +20,7 @@ service cloud.firestore {
 
       allow create: if
         request.resource.data.keys().hasOnly([
-          'name', 'email', 'company', 'website', 'country', 'budget', 'services', 'message',
+          'name', 'phone', 'source', 'email', 'company', 'website', 'country', 'budget', 'services', 'message',
           'status', 'createdAt', 'page', 'referrer',
           'utmSource', 'utmMedium', 'utmCampaign', 'utmTerm', 'utmContent',
           'userAgent', 'language', 'timezone', 'screen',
@@ -28,15 +28,27 @@ service cloud.firestore {
         ])
         && request.resource.data.name is string
         && request.resource.data.name.size() > 0 && request.resource.data.name.size() < 200
-        && request.resource.data.email is string
-        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
-        && request.resource.data.company is string && request.resource.data.company.size() < 200
-        && request.resource.data.website is string && request.resource.data.website.size() < 500
-        && request.resource.data.country is string && request.resource.data.country.size() < 100
-        && request.resource.data.budget is string && request.resource.data.budget.size() < 100
-        && request.resource.data.services is list && request.resource.data.services.size() < 20
-        && request.resource.data.message is string
-        && request.resource.data.message.size() > 0 && request.resource.data.message.size() < 5000
+        // Optional fields — the full contact form sends all of these, the
+        // quick lead-card (name + phone only) omits most of them. Each is
+        // validated only when present.
+        && (!('phone' in request.resource.data) ||
+            (request.resource.data.phone is string && request.resource.data.phone.size() > 0 && request.resource.data.phone.size() < 30))
+        && (!('source' in request.resource.data) ||
+            (request.resource.data.source is string && request.resource.data.source.size() < 50))
+        && (!('email' in request.resource.data) ||
+            (request.resource.data.email is string && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')))
+        && (!('company' in request.resource.data) ||
+            (request.resource.data.company is string && request.resource.data.company.size() < 200))
+        && (!('website' in request.resource.data) ||
+            (request.resource.data.website is string && request.resource.data.website.size() < 500))
+        && (!('country' in request.resource.data) ||
+            (request.resource.data.country is string && request.resource.data.country.size() < 100))
+        && (!('budget' in request.resource.data) ||
+            (request.resource.data.budget is string && request.resource.data.budget.size() < 100))
+        && (!('services' in request.resource.data) ||
+            (request.resource.data.services is list && request.resource.data.services.size() < 20))
+        && (!('message' in request.resource.data) ||
+            (request.resource.data.message is string && request.resource.data.message.size() < 5000))
         && request.resource.data.status == 'new'
         && request.resource.data.createdAt == request.time
         && request.resource.data.page is string && request.resource.data.page.size() < 500

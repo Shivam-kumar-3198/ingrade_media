@@ -47,6 +47,7 @@ export async function POST(request: Request) {
       budget: parsed.data.budget,
       services: parsed.data.services,
       message: parsed.data.message,
+      source: "contact-form",
       status: "new",
       createdAt: serverTimestamp(),
       page: parsed.data.page,
