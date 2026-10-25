@@ -12,6 +12,9 @@ import {
   LayoutDashboard,
   ShieldCheck,
   Clock,
+  Landmark,
+  Car,
+  HeartHandshake,
   type LucideIcon,
 } from "lucide-react";
 
@@ -94,6 +97,19 @@ export const industries: Industry[] = [
   { name: "Local Services", icon: Wrench },
 ];
 
+// Case studies label industries more specifically than the homepage strip does.
+const industryIconAliases: Record<string, LucideIcon> = {
+  "Online Education": GraduationCap,
+  EdTech: GraduationCap,
+  Fintech: Landmark,
+  Automotive: Car,
+  Nonprofit: HeartHandshake,
+};
+
 export function getIndustryIcon(industryName: string): LucideIcon {
-  return industries.find((industry) => industry.name === industryName)?.icon ?? Building2;
+  return (
+    industries.find((industry) => industry.name === industryName)?.icon ??
+    industryIconAliases[industryName] ??
+    Building2
+  );
 }

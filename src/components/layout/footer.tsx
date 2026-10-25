@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Linkedin, Instagram, Youtube, Twitter } from "lucide-react";
 
+import { FooterBlurb, FooterIndiaContact } from "@/components/layout/footer-localized";
 import { siteConfig } from "@/lib/site-config";
 import { footerServiceLinks, footerCompanyLinks, footerLegalLinks } from "@/lib/data/nav";
 
@@ -12,10 +13,7 @@ export function Footer() {
           <Link href="/" className="font-display text-lg font-semibold tracking-tight">
             Ingrade<span className="text-primary">Media</span>
           </Link>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Paid media, social, and product development for companies growing across{" "}
-            {siteConfig.countriesServed}+ countries. {siteConfig.timezoneCoverage}.
-          </p>
+          <FooterBlurb />
           <div className="mt-6 flex gap-4">
             <a href={siteConfig.social.linkedin} aria-label="Ingrade Media on LinkedIn" className="text-muted-foreground hover:text-primary">
               <Linkedin className="h-5 w-5" />
@@ -72,7 +70,7 @@ export function Footer() {
                 {siteConfig.phone}
               </a>
             </li>
-            <li className="text-muted-foreground/80">{siteConfig.address.line1}</li>
+            <FooterIndiaContact />
           </ul>
         </div>
       </div>

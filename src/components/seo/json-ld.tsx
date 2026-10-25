@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site-config";
+
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
@@ -14,7 +16,7 @@ export function organizationJsonLd(siteUrl: string) {
     "@type": "Organization",
     name: "Ingrade Media",
     url: siteUrl,
-    logo: `${siteUrl}/images/logo.svg`,
+    logo: `${siteUrl}/icon-512.png`,
     sameAs: [
       "https://www.linkedin.com/company/ingrade-media",
       "https://www.instagram.com/ingrademedia",
@@ -38,11 +40,15 @@ export function localBusinessJsonLd(siteUrl: string) {
     url: siteUrl,
     image: `${siteUrl}/images/og/default.svg`,
     priceRange: "$$",
+    telephone: siteConfig.phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Noida",
+      streetAddress: siteConfig.address.line1,
+      addressLocality: siteConfig.address.locality,
+      addressRegion: siteConfig.address.region,
+      addressCountry: siteConfig.address.country,
     },
-    areaServed: "Worldwide",
+    areaServed: [{ "@type": "Country", name: "India" }, "Worldwide"],
   };
 }
 

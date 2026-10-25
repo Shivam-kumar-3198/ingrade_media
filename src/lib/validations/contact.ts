@@ -11,6 +11,15 @@ export const budgetRanges = [
   "Project-based (not a monthly retainer)",
 ] as const;
 
+export const budgetRangesIndia = [
+  "Under ₹50,000/month",
+  "₹50,000 – ₹1,50,000/month",
+  "₹1,50,000 – ₹5,00,000/month",
+  "₹5,00,000 – ₹15,00,000/month",
+  "₹15,00,000+/month",
+  "Project-based (not a monthly retainer)",
+] as const;
+
 export const countries = [...countryList.map((c) => c.name), "Other"] as const;
 
 export const serviceOptions = [
@@ -34,6 +43,14 @@ export const contactFormSchema = z.object({
     .refine((val) => /^https?:\/\/.+\..+/.test(val) || /^[\w-]+\.[a-z]{2,}(\/.*)?$/i.test(val), {
       message: "Enter a valid website URL",
     }),
+  // Optional so the form never blocks someone who only wants to be emailed.
+  phone: z
+    .string()
+    .trim()
+    .refine((val) => val === "" || (/^[+]?[0-9\s\-().]{7,20}$/.test(val) && val.replace(/\D/g, "").length >= 7), {
+      message: "Enter a valid phone number, e.g. +91 98765 43210",
+    })
+    .optional(),
   country: z.string().min(1, "Select your country"),
   budget: z.string().min(1, "Select a budget range"),
   services: z.array(z.string()).min(1, "Select at least one service"),

@@ -8,8 +8,10 @@ import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { GrowthVisual } from "@/components/shared/growth-visual";
 import { generateTrendingBars } from "@/lib/growth-bars";
-import { FaqSection } from "@/components/sections/faq-section";
+import { LocalizedFaqSection } from "@/components/sections/localized-faq-section";
+import { ServicePricing } from "@/components/sections/service-pricing";
 import { FinalCta } from "@/components/sections/final-cta";
+import { localizeServiceFaqs } from "@/lib/data/india";
 import { JsonLd, breadcrumbJsonLd, serviceJsonLd } from "@/components/seo/json-ld";
 import { services, getServiceBySlug, getServiceSummaries } from "@/lib/data/services";
 import { getCaseStudyBySlug } from "@/lib/data/case-studies";
@@ -186,19 +188,18 @@ export default function ServicePage({ params }: ServicePageProps) {
           <div className="mx-auto max-w-2xl text-center">
             <span className="text-sm font-medium uppercase tracking-wider text-primary">Pricing</span>
             <h2 className="mt-3 text-balance text-3xl font-semibold sm:text-4xl">{service.pricingModel.title}</h2>
-            <p className="mt-4 text-balance leading-relaxed text-muted-foreground">
-              {service.pricingModel.description}
-            </p>
-            <p className="mt-6 font-display text-lg font-semibold text-foreground">
-              {service.pricingModel.startingPoint}
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">All pricing in USD.</p>
+            <ServicePricing
+              slug={service.slug}
+              description={service.pricingModel.description}
+              startingPoint={service.pricingModel.startingPoint}
+            />
           </div>
         </div>
       </section>
 
-      <FaqSection
+      <LocalizedFaqSection
         faqs={service.faqs}
+        indiaFaqs={localizeServiceFaqs(service.slug, service.faqs)}
         idPrefix={`${service.slug}-faq`}
         eyebrow="FAQ"
         title={`${service.shortName} questions, answered directly`}

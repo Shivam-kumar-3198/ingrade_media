@@ -2,17 +2,19 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight, MapPin, PlayCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RatingCard } from "@/components/shared/rating-card";
 import { GrowthVisual } from "@/components/shared/growth-visual";
+import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 import { siteConfig } from "@/lib/site-config";
 import { useSelectedCountry } from "@/hooks/use-selected-country";
 
 export function Hero() {
   const country = useSelectedCountry();
+  const isIndia = country?.code === "IN";
 
   return (
     <section className="section-glow relative overflow-hidden bg-grid pb-20 pt-20 sm:pb-28 sm:pt-28">
@@ -27,7 +29,12 @@ export function Hero() {
             <div className="mb-6 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
               <Badge variant="outline">Google Partner</Badge>
               <Badge variant="outline">Meta Business Partner</Badge>
-              {country ? (
+              {isIndia ? (
+                <Badge>
+                  <MapPin className="mr-1.5 h-3 w-3" aria-hidden="true" />
+                  Based in Noida, serving brands across India
+                </Badge>
+              ) : country ? (
                 <Badge>
                   {country.flag} Now serving {country.name}
                 </Badge>
@@ -41,7 +48,12 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-muted-foreground">
-              {country ? (
+              {isIndia ? (
+                <>
+                  We run Meta Ads, Google Ads, social, and web development for Indian brands, from D2C and EdTech to
+                  real estate and fintech. Weekly numbers you can actually read, billed in ₹ with GST invoices.
+                </>
+              ) : country ? (
                 <>
                   We run Meta Ads, Google Ads, social, and web development for companies across{" "}
                   {country.flag} {country.name} and {siteConfig.countriesServed}+ other countries, with
@@ -62,12 +74,16 @@ export function Hero() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="ghost" size="lg">
-                <Link href="/case-studies">
-                  <PlayCircle className="mr-2 h-4 w-4" />
-                  See our work
-                </Link>
-              </Button>
+              {isIndia ? (
+                <WhatsAppButton size="lg" />
+              ) : (
+                <Button asChild variant="ghost" size="lg">
+                  <Link href="/case-studies">
+                    <PlayCircle className="mr-2 h-4 w-4" />
+                    See our work
+                  </Link>
+                </Button>
+              )}
             </div>
 
             <motion.div

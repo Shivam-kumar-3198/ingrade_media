@@ -1,14 +1,21 @@
+"use client";
+
 import { industries } from "@/lib/data/process";
+import { indiaIndustries } from "@/lib/data/india";
+import { useIsIndia } from "@/hooks/use-selected-country";
 
 export function IndustriesStrip() {
+  const isIndia = useIsIndia();
+  const list = isIndia ? indiaIndustries : industries;
+
   return (
     <section className="border-y border-white/5 bg-secondary/10 py-14">
       <div className="container">
         <p className="text-center text-sm font-medium uppercase tracking-wider text-muted-foreground">
-          Industries we work in
+          {isIndia ? "Industries we work in across India" : "Industries we work in"}
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          {industries.map((industry) => {
+          {list.map((industry) => {
             const Icon = industry.icon;
             return (
               <span

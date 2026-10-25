@@ -1,4 +1,6 @@
 export const COUNTRY_COOKIE_NAME = "ing_country";
+/** Cookie value for "the visitor deliberately chose the generic global site". */
+export const GLOBAL_COUNTRY_VALUE = "GLOBAL";
 
 export interface Country {
   code: string;

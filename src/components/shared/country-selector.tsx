@@ -3,10 +3,8 @@
 import { Globe } from "lucide-react";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { countries } from "@/lib/data/countries";
+import { countries, GLOBAL_COUNTRY_VALUE as GLOBAL_VALUE } from "@/lib/data/countries";
 import { useSelectedCountry, useSetSelectedCountry } from "@/hooks/use-selected-country";
-
-const GLOBAL_VALUE = "GLOBAL";
 
 export function CountrySelector({ className }: { className?: string }) {
   const selected = useSelectedCountry();

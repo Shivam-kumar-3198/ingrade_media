@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion, animate } from "framer-motion";
 
 import type { Stat } from "@/lib/data/stats";
+import { useIsIndia } from "@/hooks/use-selected-country";
 
 function StatValue({ stat }: { stat: Stat }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -36,11 +37,14 @@ function StatValue({ stat }: { stat: Stat }) {
   );
 }
 
-export function StatsCounter({ stats }: { stats: Stat[] }) {
+export function StatsCounter({ stats, indiaStats }: { stats: Stat[]; indiaStats?: Stat[] }) {
+  const isIndia = useIsIndia();
+  const shown = isIndia && indiaStats ? indiaStats : stats;
+
   return (
     <section className="border-y border-white/5 bg-secondary/20 py-14">
       <div className="container grid grid-cols-2 gap-8 lg:grid-cols-4">
-        {stats.map((stat, index) => (
+        {shown.map((stat, index) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 16 }}

@@ -36,6 +36,10 @@ export const metadata: Metadata = {
     "Meta Ads, Google Ads, app development, website development, social media management, Webflow, and WordPress — run by one team across 27+ countries.",
   keywords: [
     "digital marketing agency",
+    "digital marketing agency in Noida",
+    "Meta Ads agency India",
+    "Google Ads agency India",
+    "website development company in Noida",
     "Meta Ads management",
     "Google Ads management",
     "Webflow development agency",
@@ -59,7 +63,17 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      // Google Search needs a favicon whose size is a multiple of 48px, so the
+      // 48px PNG leads; the .ico covers browsers that still ask for it.
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-144x144.png", sizes: "144x144", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
     ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }

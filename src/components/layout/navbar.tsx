@@ -9,12 +9,16 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { CountrySelector } from "@/components/shared/country-selector";
+import { WhatsAppButton } from "@/components/shared/whatsapp-button";
+import { useIsIndia } from "@/hooks/use-selected-country";
 import { primaryNav } from "@/lib/data/nav";
+import { telLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isIndia = useIsIndia();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/5 bg-background/70 backdrop-blur-lg">
@@ -50,9 +54,13 @@ export function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <CountrySelector />
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/case-studies">See our work</Link>
-          </Button>
+          {isIndia ? (
+            <WhatsAppButton size="sm" label="WhatsApp" />
+          ) : (
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/case-studies">See our work</Link>
+            </Button>
+          )}
           <Button asChild size="sm">
             <Link href="/contact">Get a free growth plan</Link>
           </Button>
@@ -76,11 +84,20 @@ export function Navbar() {
             </nav>
             <div className="mt-auto flex flex-col gap-3 pt-8">
               <CountrySelector className="h-11 w-full justify-start gap-2 rounded-full border border-white/10 bg-secondary/20 px-4 text-sm" />
-              <SheetClose asChild>
-                <Button asChild variant="secondary">
-                  <Link href="/case-studies">See our work</Link>
-                </Button>
-              </SheetClose>
+              {isIndia ? (
+                <>
+                  <WhatsAppButton />
+                  <Button asChild variant="secondary">
+                    <a href={telLink()}>Call us</a>
+                  </Button>
+                </>
+              ) : (
+                <SheetClose asChild>
+                  <Button asChild variant="secondary">
+                    <Link href="/case-studies">See our work</Link>
+                  </Button>
+                </SheetClose>
+              )}
               <SheetClose asChild>
                 <Button asChild>
                   <Link href="/contact">Get a free growth plan</Link>

@@ -154,6 +154,27 @@ Supported countries live in `src/lib/data/countries.ts`. Geo-detection only fire
 header is empty everywhere else, including local dev) — elsewhere, personalization only activates via
 the manual selector.
 
+## India experience
+
+India visitors get a tailored version of the site, on top of the country system above. It activates when the
+country is `IN` (Vercel geo header, the selector, or — new — the browser timezone `Asia/Kolkata` when no cookie
+exists, so it also works in local dev). Choosing "Global" in the selector now sticks (stored as `ing_country=GLOBAL`).
+
+What changes for India: ₹ pricing with a GST note on service pages, ₹ stats, ₹ budget ranges and a
+phone/WhatsApp field on the contact form, WhatsApp (floating button, nav, hero, final CTA, contact page), a trust
+bar (₹ pricing, GST invoices, WhatsApp support, IST hours), the real India engagements in the logo strip and
+results section, India industries, India FAQ answers, and Noida/India details in the footer and JSON-LD.
+
+All India copy and numbers live in `src/lib/data/india.ts`; contact details and hours in `src/lib/site-config.ts`.
+
+TODO before launch (placeholders I chose, not confirmed business facts):
+- [ ] Confirm every rupee price and minimum spend in `src/lib/data/india.ts`
+- [ ] Confirm the "₹100 Cr+" ad-spend stat (a straight conversion of the global placeholder)
+- [ ] Confirm support hours (`siteConfig.india.supportHours`), GST invoicing, and the 18% rate
+- [ ] Confirm the WhatsApp number (currently derived from `siteConfig.phone`)
+- [ ] `legalName` is "Ingrade Media LLC"; use the real Indian entity name (Pvt Ltd / LLP) and add GSTIN to the footer
+- [ ] Flag emoji render as "IN" on Windows; consider an SVG flag set for the country selector
+
 ## Photography
 
 Client (testimonial/case-study) photos and a handful of office/work section banners are real,

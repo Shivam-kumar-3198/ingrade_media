@@ -6,7 +6,8 @@ import { Card } from "@/components/ui/card";
 import { ContactForm } from "@/components/forms/contact-form";
 import { RatingCard } from "@/components/shared/rating-card";
 import { JsonLd, breadcrumbJsonLd } from "@/components/seo/json-ld";
-import { siteConfig } from "@/lib/site-config";
+import { IndiaContactCard } from "@/components/sections/india-contact-card";
+import { siteConfig, telLink } from "@/lib/site-config";
 import { scenePhotos } from "@/lib/stock-photos";
 
 export const metadata: Metadata = {
@@ -63,6 +64,8 @@ export default function ContactPage() {
               <RatingCard />
             </div>
 
+            <IndiaContactCard />
+
             <Card className="p-6">
               <h2 className="font-display text-lg font-semibold">Prefer to talk it through first?</h2>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -88,7 +91,9 @@ export default function ContactPage() {
               <div className="flex items-start gap-3 text-sm">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 {/* TODO: replace with real phone number before launch */}
-                <span className="text-muted-foreground">{siteConfig.phone}</span>
+                <a href={telLink()} className="text-muted-foreground hover:text-foreground">
+                  {siteConfig.phone}
+                </a>
               </div>
               <div className="flex items-start gap-3 text-sm">
                 <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />

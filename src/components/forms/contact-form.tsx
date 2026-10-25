@@ -11,12 +11,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { contactFormSchema, type ContactFormValues, budgetRanges, countries, serviceOptions } from "@/lib/validations/contact";
+import {
+  contactFormSchema,
+  type ContactFormValues,
+  budgetRanges,
+  budgetRangesIndia,
+  countries,
+  serviceOptions,
+} from "@/lib/validations/contact";
 import { useSelectedCountry } from "@/hooks/use-selected-country";
 import { getClientLeadMetadata } from "@/lib/lead-metadata";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  // reset() clears the country on success, so remember it for the confirmation message.
+  const [sawIndia, setSawIndia] = useState(false);
 
   const {
     register,
@@ -24,6 +33,7 @@ export function ContactForm() {
     control,
     watch,
     setValue,
+    getValues,
     reset,
     formState: { errors },
   } = useForm<ContactFormValues>({
@@ -33,6 +43,7 @@ export function ContactForm() {
       email: "",
       company: "",
       website: "",
+      phone: "",
       country: "",
       budget: "",
       services: [],
@@ -44,6 +55,10 @@ export function ContactForm() {
   const selectedServices = watch("services");
   const currentCountry = watch("country");
   const detectedCountry = useSelectedCountry();
+  // Follow the country the visitor actually picked in the form, not just the detected one,
+  // so choosing "India" switches the budget ranges to rupees.
+  const isIndia = currentCountry === "India";
+  const budgetOptions = isIndia ? budgetRangesIndia : budgetRanges;
 
   useEffect(() => {
     if (detectedCountry && !currentCountry) {
@@ -52,6 +67,15 @@ export function ContactForm() {
     // Only auto-fill once, when a detected country first becomes available and the field is still untouched.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detectedCountry]);
+
+  // A range picked in one currency makes no sense after switching to the other.
+  useEffect(() => {
+    const current = getValues("budget");
+    if (current && !(budgetOptions as readonly string[]).includes(current)) {
+      setValue("budget", "");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isIndia]);
 
   const onSubmit = async (values: ContactFormValues) => {
     setStatus("submitting");
@@ -62,6 +86,7 @@ export function ContactForm() {
         body: JSON.stringify({ ...values, ...getClientLeadMetadata() }),
       });
       if (!res.ok) throw new Error("Request failed");
+      setSawIndia(values.country === "India");
       setStatus("success");
       reset();
     } catch {
@@ -76,6 +101,7 @@ export function ContactForm() {
         <h3 className="mt-4 font-display text-xl font-semibold">Got it — we&apos;ll reply within one business day</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           Check your inbox for a confirmation. If you don&apos;t see it in ten minutes, check spam before reaching out again.
+          {sawIndia ? " You can also message us on WhatsApp any time." : ""}
         </p>
       </div>
     );
@@ -92,12 +118,25 @@ export function ContactForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <Label htmlFor="name">Full name</Label>
-          <Input id="name" className="mt-2" placeholder="Alex Morgan" {...register("name")} />
+          <Input
+            id="name"
+            className="mt-2"
+            placeholder={isIndia ? "Rohan Mehta" : "Alex Morgan"}
+            autoComplete="name"
+            {...register("name")}
+          />
           {errors.name ? <p className="mt-1 text-xs text-destructive">{errors.name.message}</p> : null}
         </div>
         <div>
           <Label htmlFor="email">Work email</Label>
-          <Input id="email" type="email" className="mt-2" placeholder="alex@company.com" {...register("email")} />
+          <Input
+            id="email"
+            type="email"
+            className="mt-2"
+            placeholder={isIndia ? "rohan@yourbrand.in" : "alex@company.com"}
+            autoComplete="email"
+            {...register("email")}
+          />
           {errors.email ? <p className="mt-1 text-xs text-destructive">{errors.email.message}</p> : null}
         </div>
       </div>
@@ -105,14 +144,38 @@ export function ContactForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <Label htmlFor="company">Company name</Label>
-          <Input id="company" className="mt-2" placeholder="Acme Inc." {...register("company")} />
+          <Input
+            id="company"
+            className="mt-2"
+            placeholder={isIndia ? "Mehta Traders Pvt. Ltd." : "Acme Inc."}
+            autoComplete="organization"
+            {...register("company")}
+          />
           {errors.company ? <p className="mt-1 text-xs text-destructive">{errors.company.message}</p> : null}
         </div>
         <div>
           <Label htmlFor="website">Website URL</Label>
-          <Input id="website" className="mt-2" placeholder="acme.com" {...register("website")} />
+          <Input id="website" className="mt-2" placeholder={isIndia ? "yourbrand.in" : "acme.com"} {...register("website")} />
           {errors.website ? <p className="mt-1 text-xs text-destructive">{errors.website.message}</p> : null}
         </div>
+      </div>
+
+      <div>
+        <Label htmlFor="phone">{isIndia ? "Mobile / WhatsApp number (optional)" : "Phone (optional)"}</Label>
+        <Input
+          id="phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          className="mt-2"
+          placeholder={isIndia ? "+91 98765 43210" : "+1 555 123 4567"}
+          {...register("phone")}
+        />
+        {errors.phone ? (
+          <p className="mt-1 text-xs text-destructive">{errors.phone.message}</p>
+        ) : isIndia ? (
+          <p className="mt-1 text-xs text-muted-foreground">We&apos;ll share your growth plan on WhatsApp if you add a number.</p>
+        ) : null}
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -149,7 +212,7 @@ export function ContactForm() {
                   <SelectValue placeholder="Select a budget range" />
                 </SelectTrigger>
                 <SelectContent>
-                  {budgetRanges.map((range) => (
+                  {budgetOptions.map((range) => (
                     <SelectItem key={range} value={range}>
                       {range}
                     </SelectItem>

@@ -41,6 +41,8 @@ export async function POST(request: Request) {
     await addDoc(collection(db, "leads"), {
       name: parsed.data.name,
       email: parsed.data.email,
+      // Firestore rules reject an empty phone string, so only store it when given.
+      ...(parsed.data.phone ? { phone: parsed.data.phone } : {}),
       company: parsed.data.company,
       website: parsed.data.website,
       country: parsed.data.country,
