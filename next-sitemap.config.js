@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.ingrademedia.com",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://ingrade.io",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   exclude: ["/thank-you", "/admin", "/admin/*"],

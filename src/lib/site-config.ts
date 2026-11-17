@@ -2,12 +2,10 @@ export const siteConfig = {
   name: "Ingrade Media",
   legalName: "Ingrade Media LLC",
   tagline: "Performance marketing and product development for growing companies.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.ingrademedia.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://ingrade.io",
   ogImage: "/images/og/default.svg",
-  // TODO: replace with a real inbox before launch
-  email: "hello@ingrademedia.com",
-  // TODO: replace with a real support line before launch — placeholder format only
-  phone: "+91 8588808538",
+  email: "ekpaisafinance@gmail.com",
+  phone: "+91 83838 58056",
   // TODO: replace with the real registered office address before launch
   address: {
     line1: "Noida",
@@ -21,6 +19,8 @@ export const siteConfig = {
     x: "https://www.x.com/ingrademedia",
     youtube: "https://www.youtube.com/@ingrademedia",
   },
+  domain: "ingrade.io",
+  legalLastUpdated: "17 November 2026",
   founded: 2018,
   countriesServed: 27,
   timezoneCoverage: "US, UK, EU, UAE, and APAC business hours",
@@ -35,7 +35,7 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig;
 
-/** Digits-only international number, as wa.me expects it (e.g. 918588808538). */
+/** Digits-only international number, as wa.me expects it (e.g. 918383858056). */
 export function whatsappNumber(): string {
   return siteConfig.phone.replace(/\D/g, "");
 }

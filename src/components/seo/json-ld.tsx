@@ -26,7 +26,8 @@ export function organizationJsonLd(siteUrl: string) {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "hello@ingrademedia.com",
+      email: siteConfig.email,
+      telephone: siteConfig.phone,
       availableLanguage: ["English"],
     },
   };
