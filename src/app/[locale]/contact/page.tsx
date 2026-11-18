@@ -90,7 +90,6 @@ export default function ContactPage() {
               </div>
               <div className="flex items-start gap-3 text-sm">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                {/* TODO: replace with real phone number before launch */}
                 <a href={telLink()} className="text-muted-foreground hover:text-foreground">
                   {siteConfig.phone}
                 </a>

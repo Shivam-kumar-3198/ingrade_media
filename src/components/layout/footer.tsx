@@ -65,7 +65,6 @@ export function Footer() {
               </a>
             </li>
             <li>
-              {/* TODO: replace with real support phone number before launch */}
               <a href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`} className="hover:text-foreground">
                 {siteConfig.phone}
               </a>
@@ -76,15 +75,16 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/5">
-        <div className="container flex flex-col items-center justify-between gap-4 py-6 text-xs text-muted-foreground md:flex-row">
-          <p>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
-          <div className="flex gap-6">
+        {/* Extra bottom padding keeps these links clear of the floating WhatsApp button (fixed, bottom-right). */}
+        <div className="container flex flex-col items-center gap-4 pb-24 pt-6 text-sm text-muted-foreground sm:pb-20 md:flex-row md:gap-8">
+          <p className="text-xs">© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {footerLegalLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-foreground">
+              <Link key={link.href} href={link.href} className="font-medium text-foreground/80 underline-offset-4 hover:text-primary hover:underline">
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
     </footer>
