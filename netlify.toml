@@ -1,0 +1,6 @@
+# Netlify secrets scanning flags any env var value that appears in build output.
+# NEXT_PUBLIC_* variables are, by design, inlined into the public browser bundle
+# (they are not secrets), so they are excluded from the scan. Real secrets
+# (e.g. RESEND_API_KEY) are NOT listed here and stay protected by the scanner.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_ELFSIGHT_WIDGET_ID,NEXT_PUBLIC_GA_MEASUREMENT_ID,NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,NEXT_PUBLIC_SITE_URL"
