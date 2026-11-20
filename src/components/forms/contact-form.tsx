@@ -270,7 +270,7 @@ export function ContactForm() {
       {status === "error" ? (
         <p className="text-sm text-destructive">
           Something went wrong sending your message. Please try again or email {" "}
-          <a href="mailto:ekpaisafinance@gmail.com" className="underline">ekpaisafinance@gmail.com</a> directly.
+          <a href="mailto:team@ingrade.io" className="underline">team@ingrade.io</a> directly.
         </p>
       ) : null}
 

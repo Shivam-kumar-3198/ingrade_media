@@ -4,8 +4,8 @@ export const siteConfig = {
   tagline: "Performance marketing and product development for growing companies.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://ingrade.io",
   ogImage: "/images/og/default.svg",
-  email: "ekpaisafinance@gmail.com",
-  phone: "+91 83838 58056",
+  email: "team@ingrade.io",
+  phone: "+91 98765 43210",
   // TODO: replace with the real registered office address before launch
   address: {
     line1: "Noida",
@@ -35,7 +35,7 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig;
 
-/** Digits-only international number, as wa.me expects it (e.g. 918383858056). */
+/** Digits-only international number, as wa.me expects it (e.g. 919876543210). */
 export function whatsappNumber(): string {
   return siteConfig.phone.replace(/\D/g, "");
 }
